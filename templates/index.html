@@ -1,0 +1,59 @@
+{% extends 'boilerplate.html' %}
+{% block content %}
+	<h1>Subnautica Navigator</h1>
+
+	<p class="lead">Navigation help for Subnautica console players</p>
+
+	<form id="ze-form" method="POST" enctype="multipart/form-data" class="m-5" action="">
+	    {{form.hidden_tag()}}
+	    <fieldset class="form-group row">
+		<legend class="border-bottom mb-4">Enter coordinates</legend>
+		<div class="input-group input-group-lg col-auto col-sm-3">
+                    <span class="input-group-text">{{form.x.label(class='form-control-label')}}</span>
+                    {{form.x(class='form-control')}}
+		</div>
+		<div class="input-group input-group-lg col-auto col-sm-3">
+                    <span class="input-group-text">{{form.y.label(class='form-control-label')}}</span>
+                    {{form.y(class='form-control')}}
+		</div>
+		<div class="input-group input-group-lg col-auto col-sm-3">
+                    <span class="input-group-text">{{form.z.label(class='form-control-label')}}</span>
+                    {{form.z(class='form-control')}}
+		</div>
+	    </fieldset>
+	    <div class="form-group">
+		{{form.submit(class='btn btn-outline-info')}}
+	    </div>
+	</form>
+
+        {% if instructions %}
+	<div id="instructions" class="text-success">
+            <blockquote class="blockquote">
+                <p><strong>Surface distance: {{"%.2f"|format(instructions.surface_distance)}}m / Absolute distance: {{"%.2f"|format(instructions.distance)}}m<br />
+                    Looking towards {{instructions.towards.orientation}}{{"%+d"|format(instructions.towards.tics)}} ({{"%.2f"|format(instructions.towards.angle)}}&deg;)<br />
+                    Looking back to origin {{instructions.reverse.orientation}}{{"%+d"|format(instructions.reverse.tics)}} ({{"%.2f"|format(instructions.reverse.angle)}}&deg;)</strong></p>
+            </blockquote>
+	</div>
+        {% endif %}
+
+	<div id="about">
+	    <p>If you're playing Subnautica on consoles, you won't have access to
+	    the console, and thus coordinates that are commonly used in web guides
+	    to locate specific objects cannot be found.</p>
+
+            <p>This form will help you with that situation once you marked your
+            zero point.  Watch the video below to learn how to find it or
+            search for "Subnautica Zero Point" on YouTube in case it might be
+            gone.  Then place a buoy there.</p>
+
+	    <p>Once you've done that, enter your coordinates into the form
+	    above, and it will give you the distance and compass direction from
+	    your buoy towards the target, as well as when looking back from the
+	    target to your buoy.</p>
+
+            <!--div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/1PmFYqcKu1s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div-->
+
+	</div>
+{% endblock content %}

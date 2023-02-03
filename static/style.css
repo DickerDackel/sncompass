@@ -1,0 +1,9 @@
+.container {
+    max-width: 992px;
+}
+
+.center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
