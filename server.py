@@ -39,10 +39,7 @@ def index():
     else:
         instructions = None
 
-    return render_template('index.html',
-                           form=form,
-                           instructions=instructions,
-                           config=app.config)
+    return render_template('index.html', form=form, instructions=instructions)
 
 def main():
     app.config.from_object('config')
