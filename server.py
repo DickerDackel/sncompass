@@ -41,9 +41,10 @@ def index():
 
     return render_template('index.html', form=form, instructions=instructions)
 
-def main():
+def create_app():
     app.config.from_object('config')
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    return app
 
 if __name__ == '__main__':
-    main()
+    app = create_app()
+    app.run(host='0.0.0.0', port=8080, debug=True)
