@@ -1,25 +1,13 @@
 #!/bin/env python3
 
 import sys
-from pprint import pformat
-from flask import Blueprint, Flask, render_template, url_for
-from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField
-import wtforms.validators
+from flask import Flask, flash, render_template, url_for
 
 import subnautica
 
-class CoordinateForm(FlaskForm):
-    x = IntegerField(label='x', default=0,
-                     validators=[wtforms.validators.InputRequired()])
-    y = IntegerField(label='y', default=0,
-                     validators=[wtforms.validators.InputRequired()])
-    z = IntegerField(label='z', default=0,
-                     validators=[wtforms.validators.InputRequired()])
-    submit = SubmitField(label='Lead me!')
+from form import CoordinateForm
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -31,12 +19,16 @@ def index():
         z = form.z.data
 
         instructions = {
+            'x': x, 'y': y, 'z': z,
             'distance': subnautica.distance(x, y, z),
             'surface_distance': subnautica.surface_distance(x, y, z),
             'towards': subnautica.look_towards(x, y, z),
             'reverse': subnautica.look_origin(x, y, z),
         }
     else:
+        for err in form.errors:
+            for details in form.errors[err]:
+                flash(f'{err} failed - {details}', 'danger')
         instructions = None
 
     return render_template('index.html', form=form, instructions=instructions)

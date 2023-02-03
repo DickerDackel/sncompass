@@ -1,0 +1,11 @@
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for cat, msg in messages %}
+            <div class="alert alert-{{cat}} alert-dismissible fade show" role="alert">
+                {{msg}}
+            </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+

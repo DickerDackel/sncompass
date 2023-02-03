@@ -4,37 +4,43 @@
 
 	<p class="lead">Navigation help for Subnautica console players</p>
 
-	<form id="ze-form" method="POST" enctype="multipart/form-data" class="m-5" action="">
-	    {{form.hidden_tag()}}
-	    <fieldset class="form-group row">
-		<legend class="border-bottom mb-4">Enter coordinates</legend>
-		<div class="input-group input-group-lg col-auto col-sm-3">
-                    <span class="input-group-text">{{form.x.label(class='form-control-label')}}</span>
-                    {{form.x(class='form-control')}}
-		</div>
-		<div class="input-group input-group-lg col-auto col-sm-3">
-                    <span class="input-group-text">{{form.y.label(class='form-control-label')}}</span>
-                    {{form.y(class='form-control')}}
-		</div>
-		<div class="input-group input-group-lg col-auto col-sm-3">
-                    <span class="input-group-text">{{form.z.label(class='form-control-label')}}</span>
-                    {{form.z(class='form-control')}}
-		</div>
-	    </fieldset>
-	    <div class="form-group">
-		{{form.submit(class='btn btn-outline-info')}}
-	    </div>
-	</form>
-
         {% if instructions %}
-	<div id="instructions" class="text-success">
-            <blockquote class="blockquote">
-                <p><strong>Surface distance: {{"%.2f"|format(instructions.surface_distance)}}m / Absolute distance: {{"%.2f"|format(instructions.distance)}}m<br />
-                    Looking towards {{instructions.towards.orientation}}{{"%+d"|format(instructions.towards.tics)}} ({{"%.2f"|format(instructions.towards.angle)}}&deg;)<br />
-                    Looking back to origin {{instructions.reverse.orientation}}{{"%+d"|format(instructions.reverse.tics)}} ({{"%.2f"|format(instructions.reverse.angle)}}&deg;)</strong></p>
-            </blockquote>
+	<div id="instructions" class="alert alert-success">
+	    <h3>Instructions for position ({{instructions.x}} / {{instructions.y}} / {{instructions.z}})</h3>
+	    <p>Surface distance: {{"%.2f"|format(instructions.surface_distance)}}m / Absolute distance: {{"%.2f"|format(instructions.distance)}}m<br />
+		Looking towards {{instructions.towards.orientation}}{{"%+d"|format(instructions.towards.tics)}} ({{"%.2f"|format(instructions.towards.angle)}}&deg;)<br />
+		Looking back to origin {{instructions.reverse.orientation}}{{"%+d"|format(instructions.reverse.tics)}} ({{"%.2f"|format(instructions.reverse.angle)}}&deg;)</p>
 	</div>
         {% endif %}
+
+	{% include 'flashes.html' %}
+
+	<form id="ze-form" method="POST" enctype="multipart/form-data" class="m-5" action="">
+	    {{form.hidden_tag()}}
+	    <legend class="border-bottom mb-4 row">Enter coordinates.</legend>
+
+	    <fieldset class="form-group row">
+		<div class="input-group input-group-lg col col-md-4">
+		    <span class="input-group-text">{{form.x.label(class='form-control-label')}}</span>
+		    {{form.x(class='form-control')}}
+		</div>
+		<div class="input-group input-group-lg col col-md-4">
+		    <span class="input-group-text">{{form.y.label(class='form-control-label')}}</span>
+		    {{form.y(class='form-control')}}
+		</div>
+		<div class="input-group input-group-lg col col-md-4">
+		    <span class="input-group-text">{{form.z.label(class='form-control-label')}}</span>
+		    {{form.z(class='form-control')}}
+		</div>
+	    </fieldset>
+	    <fieldset class="form-group row">
+		<div class="form-group">
+		    {{form.show(class='btn btn-outline-info')}}
+		</div>
+	    </fieldset>
+	</form>
+
+	<h2>What and why?</h2>
 
 	<div id="about">
 	    <p>If you're playing Subnautica on consoles, you won't have access to
@@ -51,9 +57,9 @@
 	    your buoy towards the target, as well as when looking back from the
 	    target to your buoy.</p>
 
-            <!--div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/1PmFYqcKu1s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div-->
+            <div class="ratio ratio-16x9">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/1PmFYqcKu1s" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
 
 	</div>
 {% endblock content %}
