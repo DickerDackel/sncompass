@@ -62,17 +62,17 @@ def look_origin(x, y, z):
         angle=angle
     )
 
-def distance(x, y, z):
+def distance_to(x, y, z):
     return sqrt(x * x + y * y + z * z)
 
-def surface_distance(x, y, z):
-    return sqrt(x * x + z * z)
 
 def calculate_all(x, y, z):
-    towards = look_towards(x, y, z)
-    reverse = look_origin(x, y, z)
-
-    return distance(x, y, z), surface_distance(x, y, z), towards, reverse
+    return (
+        distance_to(x, y, z),
+        distance_to(x, 0, z),
+        look_towards(x, y, z),
+        look_origin(x, y, z),
+    )
 
 def test():
     l = 100

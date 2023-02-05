@@ -20,8 +20,8 @@ def index():
 
         instructions = {
             'x': x, 'y': y, 'z': z,
-            'distance': subnautica.distance(x, y, z),
-            'surface_distance': subnautica.surface_distance(x, y, z),
+            'distance': subnautica.distance_to(x, y, z),
+            'surface_distance': subnautica.distance_to(x, 0, z),
             'towards': subnautica.look_towards(x, y, z),
             'reverse': subnautica.look_origin(x, y, z),
         }
