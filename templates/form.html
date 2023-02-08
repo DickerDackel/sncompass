@@ -1,0 +1,41 @@
+            <form id="ze-form" method="POST" enctype="multipart/form-data" class="m-5" action="">
+                {{form.hidden_tag()}}
+                <legend class="border-bottom mb-4 row lead"><strong>Enter coordinates.</strong><br />
+                    <small class="text-muted">
+                        If you fill out "Location name" and "Submitted by", the
+                        entry will also be saved.  Otherwise you only get
+                        instructions.
+                    </small>
+                </legend>
+
+                <fieldset class="form-group row">
+                    <div class="input-group input-group-lg col col-md-4">
+                        <span class="input-group-text">{{form.x.label(class='form-control-label')}}</span>
+                        {{form.x(class='form-control')}}
+                    </div>
+                    <div class="input-group input-group-lg col col-md-4">
+                        <span class="input-group-text">{{form.y.label(class='form-control-label')}}</span>
+                        {{form.y(class='form-control')}}
+                    </div>
+                    <div class="input-group input-group-lg col col-md-4">
+                        <span class="input-group-text">{{form.z.label(class='form-control-label')}}</span>
+                        {{form.z(class='form-control')}}
+                    </div>
+                </fieldset>
+                <fieldset class="form-group row">
+                    <div class="col col-md-6">
+                        {{form.name(class='form-control')}}
+                        {{form.name.label(class='text-muted form-label')}}
+                    </div>
+                    <div class="col col-md-6">
+                        {{form.submitter(class='form-control')}}
+                        {{form.submitter.label(class='text-muted form-label')}}
+                    </div>
+                </fieldset>
+                <fieldset class="form-group row">
+                    <div class="form-group">
+                        {{form.show(class='btn btn-outline-info')}}
+                    </div>
+                </fieldset>
+            </form>
+

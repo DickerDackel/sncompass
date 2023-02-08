@@ -1,5 +1,7 @@
 # Don't manage the config, the config.sample is in the repo
 config.py
+locations.json
+*.bak
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,8 @@
+            <h2>Known locations</h2>
+
+            <ul>
+                {% for loc in locations %}
+                <li>{{ loc.name }} @ ({{ loc.x }}, {{ loc.y }}, {{ loc.z }}) by {{ submitter }}</li>
+                {% endfor %}
+            </ul>
+

@@ -1,4 +1,4 @@
-from wtforms import IntegerField, SubmitField
+from wtforms import IntegerField, StringField, SubmitField
 from wtforms.validators import InputRequired
 from flask_wtf import FlaskForm
 
@@ -9,5 +9,9 @@ class CoordinateForm(FlaskForm):
                      validators=[InputRequired()])
     z = IntegerField(label='z', default=0,
                      validators=[InputRequired()])
-    show = SubmitField(label='Just Lead me!')
+
+    submitter = StringField(label='Submitted by')
+    name = StringField(label='Location name')
+
+    show = SubmitField(label='Lead me!')
 
