@@ -1,0 +1,4 @@
+yellow: F6A91D
+tuerkis: 16EAF5
+dark blue: 011F3B
+light blue: 1DA0E8
