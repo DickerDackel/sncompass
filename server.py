@@ -132,9 +132,7 @@ def index():
         app.logger.error('Got an ID: ' + request.args['id'])
         prefill = locations.by_id(ObjectId(request.args['id']))
         app.logger.error('Prefill: ' + repr(prefill))
-        form = CoordinateForm(x=prefill['x'], y=prefill['y'], z=prefill['z'],
-                              name=prefill['name'],
-                              submitter=prefill['submitter'])
+        form = CoordinateForm(x=prefill['x'], y=prefill['y'], z=prefill['z'])
         app.logger.error(form)
     else:
         form = CoordinateForm()
