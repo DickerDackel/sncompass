@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd bootstrap
+./node_modules/.bin/sass --watch subnautica.scss ../../static/subnautica.css

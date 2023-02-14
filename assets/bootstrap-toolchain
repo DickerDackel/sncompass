@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git clone https://github.com/twbs/bootstrap
+cd bootstrap
+npm install
+ln -s ../subnautica.scss .
