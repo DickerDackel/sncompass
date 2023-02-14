@@ -14,4 +14,3 @@ class CoordinateForm(FlaskForm):
     name = StringField(label='Location name')
 
     show = SubmitField(label='Lead me!')
-
