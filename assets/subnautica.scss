@@ -1,0 +1,17 @@
+@import "scss/functions";
+
+$body-bg: #063F70;
+$body-color: #FFA900;
+$link-color: #FFA900;
+$success: #16EAF5;
+$danger: red;
+
+$success-bg-subtle: tint-color($success, 60%);
+$body-tertiary-bg: tint-color($body-bg, 20%);
+
+@import "scss/bootstrap";
+
+.btn {
+    /* --bs-btn-bg: tint-color($body-bg, 20%); */
+    --bs-btn-bg: red;
+}
