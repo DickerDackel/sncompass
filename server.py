@@ -159,15 +159,19 @@ def index():
 
     return render_template('index.html', form=form, instructions=instructions, locations=locations.all())
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/license')
+def license():
+    return render_template('license.html')
+
 @app.route('/delete/<id>')
 def delete(id):
     locations.delete(id)
 
     return redirect(url_for('index'))
-
-@app.route('/svg')
-def svg():
-    return render_template('svg.html')
 
 def create_app():
     return app

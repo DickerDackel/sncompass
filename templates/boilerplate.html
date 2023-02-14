@@ -12,14 +12,10 @@
         <title>Subnautica direction calculator</title>
     </head>
     <body>
+	{% include 'navbar.html' %}
+
         <div class="container">
             {% block content %}{% endblock %}
 	</div>
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="{{url_for('static', filename='jquery-3.6.3.slim.js')}}"></script>
-        <script src="{{url_for('static', filename='popper.js')}}"></script>
-        <script src="{{url_for('static', filename='bootstrap.js')}}"></script>
     </body>
 </html>
