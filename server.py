@@ -9,7 +9,7 @@ from flask import Flask, jsonify, flash, render_template, url_for, request, redi
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-import subnautica
+from sncompass.calculate import distance_to, look_towards, look_origin
 from tinysvg import SVG
 
 from form import CoordinateForm
@@ -93,10 +93,10 @@ def form_to_instructions(form):
 
     return {
         'x': x, 'y': y, 'z': z,
-        'distance': subnautica.distance_to(x, y, z),
-        'surface_distance': subnautica.distance_to(x, 0, z),
-        'towards': subnautica.look_towards(x, y, z),
-        'reverse': subnautica.look_origin(x, y, z),
+        'distance': distance_to(x, y, z),
+        'surface_distance': distance_to(x, 0, z),
+        'towards': look_towards(x, y, z),
+        'reverse': look_origin(x, y, z),
         'name': form.name.data if form.name.data else '',
         'submitter': form.submitter.data if form.submitter.data else '',
     }
