@@ -6,7 +6,7 @@ setup(
     packages=[],
     entry_points={
         'console_scripts': [
-            'server = server:main',
+            'sncompass = sncompass.server:main',
             'subnautica-nav = sncompass.calculate:main',
         ],
     },
