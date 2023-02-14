@@ -1,0 +1,8 @@
+[flake8]
+max-line-length = 100
+select = C,E,F,W,B,B950
+
+# E201 whitespace after '['
+# E202 whitespace before ']'
+# E731 do not assign a lambda expression, use a def
+extend-ignore = E201, E202, E203, E501, E731, E741
