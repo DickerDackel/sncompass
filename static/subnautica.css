@@ -80,8 +80,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #FFA900;
   --bs-body-color-rgb: 255, 169, 0;
-  --bs-body-bg: #063F70;
-  --bs-body-bg-rgb: 6, 63, 112;
+  --bs-body-bg: #011f3b;
+  --bs-body-bg-rgb: 1, 31, 59;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(255, 169, 0, 0.75);
@@ -90,8 +90,8 @@
   --bs-secondary-bg-rgb: 233, 236, 239;
   --bs-tertiary-color: rgba(255, 169, 0, 0.5);
   --bs-tertiary-color-rgb: 255, 169, 0;
-  --bs-tertiary-bg: #38658d;
-  --bs-tertiary-bg-rgb: 56, 101, 141;
+  --bs-tertiary-bg: #344c62;
+  --bs-tertiary-bg-rgb: 52, 76, 98;
   --bs-link-color: #FFA900;
   --bs-link-color-rgb: 255, 169, 0;
   --bs-link-decoration: underline;
@@ -2438,10 +2438,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #063F70, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 1px #011f3b, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #063F70, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 1px #011f3b, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;

@@ -1,5 +1,6 @@
 body {
-    background-image: linear-gradient(#0C68B5, #011F3B) fixed;
+    background-image: linear-gradient(#0C68B5, #011F3B);
+    background-repeat: no-repeat;
 }
 
 legend {
@@ -14,9 +15,4 @@ legend {
     float: none;
     margin-left: auto;
     margin-right: auto;
-}
-
-// How the fuck do you override this one in scss?!?
-.btn {
-    /*background-color: #38658D;*/
 }
