@@ -12,6 +12,5 @@ $body-tertiary-bg: tint-color($body-bg, 20%);
 @import "scss/bootstrap";
 
 .btn {
-    /* --bs-btn-bg: tint-color($body-bg, 20%); */
-    --bs-btn-bg: red;
+    --bs-btn-bg: #38658D;
 }
