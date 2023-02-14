@@ -106,8 +106,6 @@ def svg_pointer(angle):
     cx, cy = 75, 75
     r = 50
 
-    app.logger.error(angle)
-
     return '\n'.join([
         svg.line(x1=cx, y1=cy, x2=cx, y2=cy-r*0.8,
                  stroke='black', stroke_width='0.5mm',
@@ -129,14 +127,10 @@ def svg_pointer(angle):
 def index():
     prefill = None
     if request.method == 'GET' and 'id' in request.args:
-        app.logger.error('Got an ID: ' + request.args['id'])
         prefill = locations.by_id(ObjectId(request.args['id']))
-        app.logger.error('Prefill: ' + repr(prefill))
         form = CoordinateForm(x=prefill['x'], y=prefill['y'], z=prefill['z'])
-        app.logger.error(form)
     else:
         form = CoordinateForm()
-        app.logger.error(form)
 
     if form.validate_on_submit() or prefill is not None:
         instructions = form_to_instructions(form)
