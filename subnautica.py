@@ -38,8 +38,8 @@ def angle_to_orientation(angle):
 
 def angle_to_tics(angle):
     normalize = angle + 22.5
-    offset = normalize - int(normalize / 45) * 45 - 22.5
-    return int(offset / 9)
+    offset = normalize % 45 - 22.5
+    return int(offset / 7.5)
 
 def coords_to_angle(x, z):
     return degrees(atan2(x, z))
