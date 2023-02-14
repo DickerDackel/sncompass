@@ -7,7 +7,7 @@ setup(
     entry_points={
         'console_scripts': [
             'server = server:main',
-            'subnautica-nav = subnautica:main',
+            'subnautica-nav = sncompass.calculate:main',
         ],
     },
 )
