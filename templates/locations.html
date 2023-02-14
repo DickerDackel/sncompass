@@ -2,7 +2,11 @@
 
             <ul>
                 {% for loc in locations %}
-                <li>{{ loc.name }} @ ({{ loc.x }}, {{ loc.y }}, {{ loc.z }}) by {{ submitter }}</li>
+                <li>
+		    <a href="{{url_for('index')}}?id={{loc._id}}">
+			{{loc.name}} @ ({{loc.x}}, {{loc.y}}, {{loc.z}}) by {{loc.submitter}}
+		    </a>
+                    <!--a href="{{url_for('delete', id=loc._id)}}">&#x1F5D1;</a--> 
+                </li>
                 {% endfor %}
             </ul>
-
