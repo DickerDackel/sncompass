@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="150" height="150"
+     viewPort="0 0 1000 1000"
+     class="float-end">
+
+<circle cx="75" cy="75" r="2.5px" />
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(0, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="0" dy="-7" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(0, 0, 0) translate(0, -50) rotate(0, 0, 0)"> N </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(45, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="7" dy="-7" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(45, 0, 0) translate(0, -50) rotate(-45, 0, 0)"> NE </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(90, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="10" dy="4" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(90, 0, 0) translate(0, -50) rotate(-90, 0, 0)"> E </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(135, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="7" dy="14" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(135, 0, 0) translate(0, -50) rotate(-135, 0, 0)"> SE </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(180, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="0" dy="14" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(180, 0, 0) translate(0, -50) rotate(-180, 0, 0)"> S </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(225, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="-7" dy="14" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(225, 0, 0) translate(0, -50) rotate(-225, 0, 0)"> SW </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(270, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="-10" dy="4" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(270, 0, 0) translate(0, -50) rotate(-270, 0, 0)"> W </text>
+
+<line x1="75" y1="75" x2="75" y2="70" stroke="black" stroke-width="2px" transform="rotate(315, 75, 75) translate(0, -50)" />
+<text x="75" y="75" dx="-7" dy="-7" font-weight="bold" font-size="8pt" text-anchor="middle" transform="rotate(315, 0, 0) translate(0, -50) rotate(-315, 0, 0)"> NW </text>
+
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(7.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(15, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(22.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(30, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(37.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(52.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(60, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(67.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(75, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(82.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(97.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(105, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(112.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(120, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(127.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(142.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(150, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(157.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(165, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(172.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(187.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(195, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(202.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(210, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(217.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(232.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(240, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(247.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(255, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(262.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(277.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(285, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(292.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(300, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(307.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(322.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(330, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(337.5, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(345, 75, 75) translate(0, -50)" />
+<line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(352.5, 75, 75) translate(0, -50)" />
+{{instructions.pointer}}
+</svg>
