@@ -5,13 +5,17 @@ import os
 import datetime
 import json
 
-from flask import Flask, jsonify, flash, render_template, url_for
+from flask import Flask, jsonify, flash, render_template, url_for, request, redirect
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 import subnautica
+from svg import SVG
 
 from form import CoordinateForm
 
 app = Flask(__name__)
+app.config.from_object('config')
 
 class LocationConflict(BaseException):
     def __init__(self, message, name, location):
@@ -20,38 +24,67 @@ class LocationConflict(BaseException):
         self.location = location
 
 class Locations:
-    def __init__(self, fname):
-        self.fname = fname
-        self.locations = self.load()
+    def __init__(self, url):
+        connect, db = url.rsplit('/', maxsplit=1)
+        client = MongoClient(connect)
 
-    def load(self):
-        try:
-            with open(self.fname, 'r') as f:
-                return(json.load(f))
-        except (OSError, json.JSONDecodeError):
-            return []
+        self.db = client[db]
 
-    def save(self):
-        try:
-            os.rename(self.fname, self.fname + '.bak')
-        except FileNotFoundError:
-            pass
+    @staticmethod
+    def _gen_near_query(x, y, z):
+        return {
+            '$and': [
+                {'x': {'$gte': x-10, '$lte': x+10}},
+                {'y': {'$gte': y-10, '$lte': y+10}},
+                {'z': {'$gte': z-10, '$lte': z+10}},
+            ]
+    }
 
-        with open(self.fname, 'w') as f:
-            json.dump(self.locations, f)
+    @staticmethod
+    def _gen_exact_query(x, y, z):
+        return {
+            '$and': [
+                {'x': {'$eq': x}},
+                {'y': {'$eq': y}},
+                {'z': {'$eq': z}},
+            ]
+    }
+
+    def by_id(self, id):
+        return self.db.locations.find_one({'_id': id})
+
+    def find(self, x, y, z):
+        return self.db.locations.find(Locations._gen_near_query(x, y, z)).sort('name')
+
+    def has(self, x, y, z):
+        return self.db.locations.count_documents(Locations._gen_near_query(x, y, z))
+
+    def all(self):
+        return self.db.locations.find({}).sort('name')
+
+    def delete(self, id):
+        res = self.db.locations.delete_one(
+            {'$and': [
+                {'x': {'$ne': 0}},
+                {'y': {'$ne': 0}},
+                {'z': {'$ne': 0}},
+                {'_id': ObjectId(id)}
+            ]}
+        )
 
     def add(self, name, submitter, x, y, z):
-        for l in self.locations:
-            if x - 10 <= l['x'] <= x + 10 and y - 10 <= l['y'] <= y + 10 and z - 10 <= l['z'] <= z + 10:
-                raise LocationConflict('Location conflict', l['name'], (l['x'], l['y'], l['z']))
-
-        self.locations.append({
-            'name': name, 'submitter': submitter,
+        rec = {
+            'name': name,
+            'submitter': submitter,
             'x': x, 'y': y, 'z': z,
             'created': datetime.datetime.isoformat(datetime.datetime.now()),
-        })
+        }
 
-        self.save()
+        match = list(self.find(x, y, z))
+        if len(match):
+            raise LocationConflict('Location conflict', match[0]['name'], (match[0]['x'], match[0]['y'], match[0]['z']))
+
+        self.db.locations.insert_one(rec)
 
 def form_to_instructions(form):
     x = form.x.data
@@ -64,16 +97,52 @@ def form_to_instructions(form):
         'surface_distance': subnautica.distance_to(x, 0, z),
         'towards': subnautica.look_towards(x, y, z),
         'reverse': subnautica.look_origin(x, y, z),
+        'name': form.name.data if form.name.data else '',
+        'submitter': form.submitter.data if form.submitter.data else '',
     }
+
+def svg_pointer(angle):
+    svg = SVG(150, 150)
+    cx, cy = 75, 75
+    r = 50
+
+    app.logger.error(angle)
+
+    return '\n'.join([
+        svg.line(x1=cx, y1=cy, x2=cx, y2=cy-r*0.8,
+                 stroke='black', stroke_width='0.5mm',
+                 transform=svg.transform([
+                     svg.rotate(angle, cx, cy),
+                 ])
+                 ),
+        svg.polyline(points=[(cx-5, cy), (cx, cy-10), (cx+5, cy), ],
+                     stroke='black', stroke_width='0.12px',
+                     stroke_miterlimit='miter',
+                     transform=svg.transform([
+                         svg.rotate(float(angle), cx, cy),
+                         svg.translate(0, -r * 0.6),
+                     ])
+                     ),
+    ])
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = CoordinateForm()
+    prefill = None
+    if request.method == 'GET' and 'id' in request.args:
+        app.logger.error('Got an ID: ' + request.args['id'])
+        prefill = locations.by_id(ObjectId(request.args['id']))
+        app.logger.error('Prefill: ' + repr(prefill))
+        form = CoordinateForm(x=prefill['x'], y=prefill['y'], z=prefill['z'],
+                              name=prefill['name'],
+                              submitter=prefill['submitter'])
+        app.logger.error(form)
+    else:
+        form = CoordinateForm()
+        app.logger.error(form)
 
-    locations = Locations('locations.json')
-
-    if form.validate_on_submit():
+    if form.validate_on_submit() or prefill is not None:
         instructions = form_to_instructions(form)
+        instructions['pointer'] = svg_pointer(instructions['towards'].angle)
 
         if form.submitter.data and form.name.data:
             try:
@@ -88,15 +157,22 @@ def index():
                 flash(f'{err} failed - {details}', 'danger')
         instructions = None
 
-    return render_template('index.html', form=form, instructions=instructions, locations=locations.locations)
+    return render_template('index.html', form=form, instructions=instructions, locations=locations.all())
 
-@app.route('/why')
-def why():
-    return render_template('why.html')
+@app.route('/delete/<id>')
+def delete(id):
+    locations.delete(id)
+
+    return redirect(url_for('index'))
+
+@app.route('/svg')
+def svg():
+    return render_template('svg.html')
 
 def create_app():
-    app.config.from_object('config')
     return app
+
+locations = Locations(app.config['MONGODB_URL'])
 
 if __name__ == '__main__':
     app = create_app()
