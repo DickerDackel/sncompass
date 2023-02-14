@@ -10,7 +10,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 import subnautica
-from svg import SVG
+from tinysvg import SVG
 
 from form import CoordinateForm
 

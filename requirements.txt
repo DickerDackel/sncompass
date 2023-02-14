@@ -1,2 +1,3 @@
 flask
 flask-wtf
+git+https://github.com/DickerDackel/tinysvg
