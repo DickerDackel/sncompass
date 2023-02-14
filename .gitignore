@@ -1,6 +1,7 @@
 # Don't manage the config, the config.sample is in the repo
 config.py
 locations.json
+assets/bootstrap
 *.bak
 
 # Byte-compiled / optimized / DLL files
