@@ -1,75 +1,96 @@
 import datetime
 
+import pymongo
+
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
+from config import MONGODB_URL
+
+connect, db_name = MONGODB_URL.rsplit('/', maxsplit=1)
+client = MongoClient(connect)
+db = client[db_name]
+
+
+class Categories:
+    def __init__(self):
+        self.collection = db.categories
+
+    def all(self):
+        return [ c['category'] for c in list(self.collection.find({})) ]
+
+
 class LocationConflict(BaseException):
     def __init__(self, message, name, location):
-        super().__init__(self, message)
+        super().__init__(self, message)
         self.name = name
         self.location = location
 
+
 class Locations:
-    def __init__(self, url):
-        connect, db = url.rsplit('/', maxsplit=1)
-        client = MongoClient(connect)
-
-        self.db = client[db]
+    def __init__(self):
+        self.collection = db.locations
 
     @staticmethod
-    def _gen_near_query(x, y, z):
-        return {
-            '$and': [
-                {'x': {'$gte': x-10, '$lte': x+10}},
-                {'y': {'$gte': y-10, '$lte': y+10}},
-                {'z': {'$gte': z-10, '$lte': z+10}},
-            ]
-    }
+    def _near_query(x, y, z, name=None):
+        query = {'$and': [
+            {'x': {'$gte': x - 10, '$lte': x + 10}},
+            {'y': {'$gte': y - 10, '$lte': y + 10}},
+            {'z': {'$gte': z - 10, '$lte': z + 10}},
+        ]}
 
-    @staticmethod
-    def _gen_exact_query(x, y, z):
-        return {
-            '$and': [
-                {'x': {'$eq': x}},
-                {'y': {'$eq': y}},
-                {'z': {'$eq': z}},
-            ]
-    }
+        if name:
+            query = {'$or': [
+                query,
+                {'name': name }
+            ]}
+
+        return query
 
     def by_id(self, id):
-        return self.db.locations.find_one({'_id': id})
+        return self.collection.find_one({'_id': ObjectId(id)})
 
-    def find(self, x, y, z):
-        return self.db.locations.find(Locations._gen_near_query(x, y, z)).sort('name')
+    def find(self, x, y, z, name=None):
+        return self.collection.find(Locations._near_query(x, y, z, name)).sort('name')
 
-    def has(self, x, y, z):
-        return self.db.locations.count_documents(Locations._gen_near_query(x, y, z))
+    def has(self, x, y, z, name=None):
+        return self.collection.count_documents(Locations._near_query(x, y, z, name))
 
     def all(self):
-        return self.db.locations.find({}).sort('name')
+        locations = {}
+        for loc in self.collection.find({}).sort([
+                ('category', pymongo.ASCENDING),
+                ('name', pymongo.ASCENDING) ]):
+            cat = loc['category']
+            if cat not in locations:
+                locations[cat] = [loc]
+            else:
+                locations[cat].append(loc)
+
+        return locations
 
     def delete(self, id):
         # Don't delete the origin
-        res = self.db.locations.delete_one(
+        deleted = self.collection.delete_one(
             {'$and': [
-                {'immutable': false},
-                {'x': {'$ne': 0}},
-                {'y': {'$ne': 0}},
-                {'z': {'$ne': 0}},
+                {'immutable': False},
                 {'_id': ObjectId(id)}
             ]}
         )
 
-    def add(self, name, submitter, x, y, z):
-        rec = {
-            'name': name,
-            'submitter': submitter,
-            'x': x, 'y': y, 'z': z,
-            'created': datetime.datetime.isoformat(datetime.datetime.now()),
-        }
+        return deleted
 
-        match = list(self.find(x, y, z))
+    def add(self, x, y, z, name, submitter):
+        match = list(self.find(x, y, z, name))
         if len(match):
             raise LocationConflict('Location conflict', match[0]['name'], (match[0]['x'], match[0]['y'], match[0]['z']))
 
-        self.db.locations.insert_one(rec)
+        self.collection.insert_one(
+            {
+                'category': 'User submitted',
+                'x': x, 'y': y, 'z': z,
+                'name': name,
+                'submitter': submitter,
+                'created': datetime.datetime.isoformat(datetime.datetime.now()),
+            }
+        )

@@ -1,1 +1,1 @@
-from .locations import Locations, LocationConflict
+from .locations import Categories, Locations, LocationConflict
