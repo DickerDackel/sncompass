@@ -16,6 +16,8 @@ from form import CoordinateForm
 app = Flask(__name__)
 app.config.from_object('config')
 
+locations = Locations(app.config['MONGODB_URL'])
+
 
 def form_to_instructions(form):
     x = form.x.data
@@ -98,8 +100,6 @@ def delete(id):
 
 def create_app():
     return app
-
-locations = Locations(app.config['MONGODB_URL'])
 
 def main():
     app.run(host='0.0.0.0', port=8080, debug=True)
