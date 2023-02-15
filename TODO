@@ -1,6 +1,4 @@
 * Hide delete function behind admin login
 * Create admin login
-* Add Categories to location database, reflect these in h2 sections
-* Add user categorie for submitted records
 * Database backup
 * Make use of the map from subnautica.fandom
