@@ -1,5 +1,6 @@
 #!/bin/env python3
 
+import pymongo
 from pymongo import MongoClient
 
 data = '''Alterra Technology
@@ -305,13 +306,13 @@ Skeletons and Minor Structures
 
 
 def scan_data(s):
-    topic = ''
+    category = ''
     for line in s.split('\n'):
         if line == '':
-            topic = ''
+            category = ''
             continue
-        if topic == '':
-            topic = line
+        if category == '':
+            category = line
             continue
         try:
             x, y, z, name = line.split(maxsplit=3)
@@ -319,13 +320,37 @@ def scan_data(s):
             print(f'cannot split {line}')
             continue
         yield {
-            'x': x, 'y': y, 'z': z,
-            'name': f'{topic} - {name}',
+            'x': float(x), 'y': float(y), 'z': float(z),
+            'category': category,
+            'name': name,
             'submitter': 'Subnautica Fandom Wiki',
+            'immutable': True,
         }
 
 client = MongoClient('mongodb://mongodb')
 db = client.subnautica
 
-locs = scan_data(data)
-db.locations.insert_many(locs)
+db.xyzzy.drop()
+db.locations.drop()
+db.categories.drop()
+
+db.categories.create_index([('category', 1)], unique=True)
+db.categories.insert_one({'category': 'User submitted'})
+db.categories.insert_one({'category': 'Origin'})
+
+db.locations.create_index([('x', 1), ('y', 1), ('z', 1)])
+db.locations.insert_one({
+   'x': 0, 'y': 0, 'z': 0,
+   'category': 'Origin',
+   'name': 'Zero Point',
+   'submitter': 'admin',
+   'immutable': True, })
+
+for l in scan_data(data):
+    category = l['category']
+    try:
+        db.categories.insert_one({'category': category})
+    except pymongo.errors.DuplicateKeyError as e:
+        pass
+
+    db.locations.insert_one(l)
