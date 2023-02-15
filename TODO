@@ -2,3 +2,4 @@
 * Create admin login
 * Database backup
 * Make use of the map from subnautica.fandom
+* Make it work with a SCRIPT_FILENAME behind a reverse proxy
