@@ -67,7 +67,7 @@ def index():
                            categories=cat)
 
 
-@app.route('/compass/<float:angle>')
+@app.route('/compass/<float(signed=True):angle>')
 def compass(angle):
     # Compass dimensions:
     #   radius 75 (makes 150 diameter)
@@ -88,10 +88,10 @@ def compass(angle):
     return res
 
 
-@app.route('/crosshair/<x>/<y>/<z>')
+@app.route('/crosshair/<float(signed=True):x>/<float(signed=True):y>/<float(signed=True):z>')
 def crosshair(x, y, z):
-    svg_x = ( float(x) + 2000) / 100
-    svg_z = (-float(z) + 2000) / 100
+    svg_x = ( x + 2000) / 100
+    svg_z = (-z + 2000) / 100
 
     resp = make_response(
         render_template('SNMap-150.svg', x=svg_x, y=svg_z),
