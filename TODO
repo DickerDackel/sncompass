@@ -3,3 +3,4 @@
 * Database backup
 * Make use of the map from subnautica.fandom
 * Make it work with a SCRIPT_FILENAME behind a reverse proxy
+    https://gist.github.com/Larivact/1ee3bad0e53b2e2c4e40
