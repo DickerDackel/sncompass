@@ -90,8 +90,8 @@ def compass(angle):
 
 @app.route('/crosshair/<x>/<y>/<z>')
 def crosshair(x, y, z):
-    svg_x = ( int(x) + 2000) / 100
-    svg_z = (-int(z) + 2000) / 100
+    svg_x = ( float(x) + 2000) / 100
+    svg_z = (-float(z) + 2000) / 100
 
     resp = make_response(
         render_template('SNMap-150.svg', x=svg_x, y=svg_z),
