@@ -9,7 +9,6 @@ setup(
         'flask',
         'flask-wtf',
         'pymongo',
-        'tinysvg @ git+https://github.com/DickerDackel/tinysvg',
         'gunicorn',
     ],
     entry_points={

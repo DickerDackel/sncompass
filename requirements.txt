@@ -2,4 +2,3 @@ flask
 flask-wtf
 gunicorn
 pymongo
-git+https://github.com/DickerDackel/tinysvg
