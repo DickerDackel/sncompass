@@ -6,11 +6,9 @@ import json
 
 from flask import Flask, jsonify, flash, render_template, url_for, request, redirect
 
-from sncompass.calculate import distance_to, look_towards, look_origin
 from tinysvg import SVG
-from sncompass import Categories, Locations, LocationConflict
-
-from form import CoordinateForm
+from sncompass import CoordinateForm, Categories, Locations, LocationConflict
+from sncompass.calculate import distance_to, look_towards, look_origin
 
 app = Flask(__name__)
 app.config.from_object('config')
