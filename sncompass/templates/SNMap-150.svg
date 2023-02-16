@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    width="151.05531"
    height="151.05531"
@@ -117,6 +120,13 @@
        cx="29.737511"
        cy="21.484108"
        r="9.0214348" />
-    {{ crosshair }}
+    <line
+       style="stroke:red;stroke-width:0.5px"
+       x1="0" y1="{{y}}"
+       x2="40" y2="{{y}}" />
+    <line
+       style="stroke:red;stroke-width:0.5px"
+       x1="{{x}}" y1="0"
+       x2="{{x}}" y2="40" />
   </g>
 </svg>

@@ -1,12 +1,7 @@
 #!/bin/env python3
 
-import sys
-import os
-import json
+from flask import Flask, flash, make_response, render_template, url_for, request, redirect
 
-from flask import Flask, jsonify, flash, render_template, url_for, request, redirect
-
-from tinysvg import SVG
 from sncompass import CoordinateForm, Categories, Locations, LocationConflict
 from sncompass.calculate import distance_to, look_towards, look_origin
 
@@ -32,42 +27,6 @@ def form_to_instructions(record):
         'submitter': record['submitter'] if record['submitter'] else '',
     }
 
-def svg_pointer(angle):
-    svg = SVG(150, 150)
-    cx, cy = 75, 75
-    r = 50
-
-    return '\n'.join([
-        svg.line(x1=cx, y1=cy, x2=cx, y2=cy-r*0.8,
-                 stroke='black', stroke_width='0.5mm',
-                 transform=svg.transform([
-                     svg.rotate(angle, cx, cy),
-                 ])
-                 ),
-        svg.polyline(points=[(cx-5, cy), (cx, cy-10), (cx+5, cy), ],
-                     stroke='black', stroke_width='0.12px',
-                     stroke_miterlimit='miter',
-                     transform=svg.transform([
-                         svg.rotate(float(angle), cx, cy),
-                         svg.translate(0, -r * 0.6),
-                     ])
-                     ),
-    ])
-
-def svg_crosshair(x, z):
-    # The viewport 40x40 (for whatever inkscape had for this).
-    # The coordinates range from -2000 to 2000.  So to map them into the
-    # drawing, shift them to the right by 2000, then divide them by 100 to
-    # scale them down.
-
-    svg_x = ( x + 2000) / 100
-    svg_z = (-z + 2000) / 100
-
-    svg = SVG(40, 40)
-    return '\n'.join([
-        svg.line(x1=svg_x, y1=0, x2=svg_x, y2=40, stroke_width='0.5', stroke='red'),
-        svg.line(x1=0, y1=svg_z, x2=40, y2=svg_z, stroke_width='0.5', stroke='red'),
-    ])
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -99,26 +58,57 @@ def index():
             for details in form.errors[err]:
                 flash(f'{err} failed - {details}', 'danger')
 
-    pointer = svg_pointer(instructions['towards'].angle) if instructions else None
-    crosshair = svg_crosshair(record['x'], record['z']) if instructions else None
-
     cat = categories.all()
     loc = locations.all()
     return render_template('index.html',
                            form=form,
                            instructions=instructions,
-                           pointer=pointer,
-                           crosshair=crosshair,
                            locations=loc,
                            categories=cat)
+
+
+@app.route('/compass/<float:angle>')
+def compass(angle):
+    # Compass dimensions:
+    #   radius 75 (makes 150 diameter)
+    #   the tics are arranged at a radius of 50px
+    #   length of pointer: 80% of tic radius 50
+    tic_radius = 50
+
+    pointer_length = tic_radius * 0.8
+    pointer_head = -tic_radius * 0.6
+
+    res = make_response(
+        render_template('compass.svg',
+                        angle=angle,
+                        pointer_length=pointer_length,
+                        pointer_head=pointer_head),
+    )
+    res.content_type = 'image/svg+xml'
+    return res
+
+
+@app.route('/crosshair/<x>/<y>/<z>')
+def crosshair(x, y, z):
+    svg_x = ( int(x) + 2000) / 100
+    svg_z = (-int(z) + 2000) / 100
+
+    resp = make_response(
+        render_template('SNMap-150.svg', x=svg_x, y=svg_z),
+    )
+    resp.content_type = 'image/svg+xml'
+    return resp
+
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+
 @app.route('/license')
 def license():
     return render_template('license.html')
+
 
 @app.route('/delete/<id>')
 def delete(id):
@@ -126,11 +116,14 @@ def delete(id):
 
     return redirect(url_for('index'))
 
+
 def create_app():
     return app
 
+
 def main():
     app.run(host='0.0.0.0', port=8080, debug=True)
+
 
 if __name__ == '__main__':
     main()

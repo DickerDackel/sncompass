@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"
      width="150" height="150"
@@ -68,5 +71,8 @@
 <line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(337.5, 75, 75) translate(0, -50)" />
 <line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(345, 75, 75) translate(0, -50)" />
 <line x1="75" y1="75" x2="75" y2="72" stroke="black" stroke-width="1px" transform="rotate(352.5, 75, 75) translate(0, -50)" />
-{{pointer}}
+
+<line x1="75" y1="75" x2="75" y2="{{75 - pointer_length}}" stroke="black" stroke-width="1px" transform="rotate({{angle}}, 75, 75)" />
+<polyline points="70,75 75,65 80,75" stroke="black" stroke-width="1px" transform="rotate({{angle}}, 75, 75) translate(0, {{pointer_head}})" />
+
 </svg>

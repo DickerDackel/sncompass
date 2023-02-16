@@ -20,8 +20,12 @@
 		    Looking towards {{instructions.towards.orientation}}{{"%+d"|format(instructions.towards.tics)}} ({{"%.2f"|format(instructions.towards.angle)}}&deg;)<br />
 		    Looking back to origin {{instructions.reverse.orientation}}{{"%+d"|format(instructions.reverse.tics)}} ({{"%.2f"|format(instructions.reverse.angle)}}&deg;)</p>
 		</div>
-		<div class="col col-12 col-sm-6 col-lg-2">{% include 'compass.svg' %}</div>
-		<div class="col col-12 col-sm-6 col-lg-2 p-1">{% include 'SNMap-150.svg' %}</div>
+		<div class="col col-12 col-sm-6 col-lg-2">
+		    <img src="{{url_for('compass', angle=instructions.towards.angle)}}" />
+		</div>
+		<div class="col col-12 col-sm-6 col-lg-2 p-1">
+		    <img src="{{url_for('crosshair', x=instructions.x, y=instructions.y, z=instructions.z)}}" />
+		</div>
 	    </div>
             {% endif %}
 
