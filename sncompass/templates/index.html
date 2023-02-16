@@ -10,16 +10,19 @@
             <a href="/about">Read here</a> about the "why?".</p>
 
             {% if instructions %}
-            <div id="instructions" class="alert alert-success">
-                <div class="float-end">{% include 'compass.svg' %}</div>
-                <h3>Instructions for position ({{instructions.x}} / {{instructions.y}} / {{instructions.z}})</h3>
-		{% if instructions.name %}
-		<p class="mb-3"><strong><small>{{instructions.name}}, submitted by {{instructions.submitter}}</smal></strong></p>
-		{% endif %}
-                <p>Surface distance: {{"%.2f"|format(instructions.surface_distance)}}m / Absolute distance: {{"%.2f"|format(instructions.distance)}}m<br />
-                    Looking towards {{instructions.towards.orientation}}{{"%+d"|format(instructions.towards.tics)}} ({{"%.2f"|format(instructions.towards.angle)}}&deg;)<br />
-                    Looking back to origin {{instructions.reverse.orientation}}{{"%+d"|format(instructions.reverse.tics)}} ({{"%.2f"|format(instructions.reverse.angle)}}&deg;)</p>
-            </div>
+	    <div id="instructions" class="alert alert-success row mx-1">
+		<div class="col col-12 col-lg-8">
+		    <h3>Instructions for position ({{instructions.x}} / {{instructions.y}} / {{instructions.z}})</h3>
+		    {% if instructions.name %}
+		    <p class="mb-3"><strong><small>{{instructions.name}}, submitted by {{instructions.submitter}}</small></strong></p>
+		    {% endif %}
+		    <p>Surface distance: {{"%.2f"|format(instructions.surface_distance)}}m / Absolute distance: {{"%.2f"|format(instructions.distance)}}m<br />
+		    Looking towards {{instructions.towards.orientation}}{{"%+d"|format(instructions.towards.tics)}} ({{"%.2f"|format(instructions.towards.angle)}}&deg;)<br />
+		    Looking back to origin {{instructions.reverse.orientation}}{{"%+d"|format(instructions.reverse.tics)}} ({{"%.2f"|format(instructions.reverse.angle)}}&deg;)</p>
+		</div>
+		<div class="col col-12 col-sm-6 col-lg-2">{% include 'compass.svg' %}</div>
+		<div class="col col-12 col-sm-6 col-lg-2 p-1">{% include 'SNMap-150.svg' %}</div>
+	    </div>
             {% endif %}
 
             {% include 'form.html' %}

@@ -54,8 +54,20 @@ def svg_pointer(angle):
                      ),
     ])
 
-import sys
-from pprint import pprint
+def svg_crosshair(x, z):
+    # The viewport 40x40 (for whatever inkscape had for this).
+    # The coordinates range from -2000 to 2000.  So to map them into the
+    # drawing, shift them to the right by 2000, then divide them by 100 to
+    # scale them down.
+
+    svg_x = ( x + 2000) / 100
+    svg_z = (-z + 2000) / 100
+
+    svg = SVG(40, 40)
+    return '\n'.join([
+        svg.line(x1=svg_x, y1=0, x2=svg_x, y2=40, stroke_width='0.5', stroke='red'),
+        svg.line(x1=0, y1=svg_z, x2=40, y2=svg_z, stroke_width='0.5', stroke='red'),
+    ])
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -87,14 +99,16 @@ def index():
             for details in form.errors[err]:
                 flash(f'{err} failed - {details}', 'danger')
 
-    if instructions:
-        instructions['pointer'] = svg_pointer(instructions['towards'].angle)
+    pointer = svg_pointer(instructions['towards'].angle) if instructions else None
+    crosshair = svg_crosshair(record['x'], record['z']) if instructions else None
 
     cat = categories.all()
     loc = locations.all()
     return render_template('index.html',
                            form=form,
                            instructions=instructions,
+                           pointer=pointer,
+                           crosshair=crosshair,
                            locations=loc,
                            categories=cat)
 
