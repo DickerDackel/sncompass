@@ -1,11 +1,5 @@
             <h2>Known locations</h2>
 
-            <ul>
-            {% for category in categories %}
-                <li><a href="#{{category}}">{{category}}</a></li>
-            {% endfor %}
-            </ul>
-
             {% for category in categories %}
             <h3 id="{{category}}">{{category}}</h3>
             <ul class="mb-3">
