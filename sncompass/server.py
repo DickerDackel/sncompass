@@ -2,11 +2,11 @@
 
 from flask import Flask, flash, make_response, render_template, url_for, request, redirect
 
-from sncompass import CoordinateForm, Categories, Locations, LocationConflict
+from sncompass import conf, CoordinateForm, Categories, Locations, LocationConflict
 from sncompass.calculate import distance_to, look_towards, look_origin
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config['SECRET_KEY'] = conf['flask']['SECRET_KEY']
 
 locations = Locations()
 categories = Categories()

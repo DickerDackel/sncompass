@@ -5,9 +5,10 @@ import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-from config import MONGODB_URL
+from sncompass import conf
 
-connect, db_name = MONGODB_URL.rsplit('/', maxsplit=1)
+
+connect, db_name = conf['mongodb']['MONGODB_URL'].rsplit('/', maxsplit=1)
 client = MongoClient(connect)
 db = client[db_name]
 

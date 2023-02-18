@@ -11,6 +11,9 @@ setup(
         'pymongo',
         'gunicorn',
     ],
+    data_files=[
+        ('etc', ['sncompass.ini', 'gunicorn.conf.py']),
+    ],
     entry_points={
         'console_scripts': [
             'sncompass = sncompass.server:main',

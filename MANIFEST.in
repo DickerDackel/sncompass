@@ -1,0 +1,6 @@
+global-exclude *.pyc
+
+include config.ini
+include gunicorn.conf.py
+graft sncompass/static
+graft sncompass/templates
