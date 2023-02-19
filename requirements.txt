@@ -1,4 +1,9 @@
+ipython
+ptpython
+flake8
+pylint
 flask
 flask-wtf
+flask_sqlalchemy
 gunicorn
 pymongo
